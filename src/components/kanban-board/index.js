@@ -14,8 +14,8 @@ export default class KanbanBoard extends Component {
       inputValue: "",
     };
     this.stagesNames = ["Backlog", "To Do", "Ongoing", "Done"];
-  }
 
+  }
   render() {
     const { tasks } = this.state;
 
@@ -47,6 +47,8 @@ export default class KanbanBoard extends Component {
             data-testid="create-task-button"
             onClick={()=>{
               this.state.tasks.push({name: this.state.inputValue, stage:0})
+              this.state.inputValue=""
+              document.getElementById("create-task-input").value=""
               this.forceUpdate()
             }}
           >
@@ -106,7 +108,7 @@ export default class KanbanBoard extends Component {
                                   .join("-")}-delete`}
                                   onClick={()=>{
                                     this.state.tasks = this.state.tasks.filter(( obj )=> {
-                                      return obj.name !== task.name && obj.stage !== task.stage;
+                                      return (obj.name !== task.name || obj.stage !== task.stage)
                                   });
                                     this.forceUpdate()
                                   }}
